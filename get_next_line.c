@@ -106,6 +106,7 @@ int get_next_line(int fd, char **line)
         if (ft_buffer_to_line(line, buffer) == 1)
             return (1);
     size = 1;
+    ft_bzero(buffer, BUFFER_SIZE + 1);
     while (size > 0)
     {
         size = read(fd, buffer, BUFFER_SIZE);

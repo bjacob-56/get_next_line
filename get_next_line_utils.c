@@ -25,6 +25,15 @@ char    *ft_calloc(size_t nmemb)
     return (res);
 }
 
+void ft_bzero(char *s, int n)
+{
+    int i;
+
+    i = 0;
+    while (i < n)
+        s[i++] = '\0';
+}
+
 int     ft_freeline(char **line)
 {
     free(*line);
