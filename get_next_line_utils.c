@@ -28,5 +28,6 @@ char    *ft_calloc(size_t nmemb)
 int     ft_freeline(char **line)
 {
     free(*line);
+    *line = NULL;
     return (0);
 }

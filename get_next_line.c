@@ -15,7 +15,10 @@
 int init_gnl(int fd, char **line)
 {
     if (!line || fd < 0 || !BUFFER_SIZE)
+    {
+        *line = NULL;
         return (-1);
+    }
     if (!(*line = ft_calloc(BUFFER_SIZE + 1)))
         return (-1);
     return (1);
@@ -95,28 +98,26 @@ int ft_add_line(char **line, char *buffer)
 int get_next_line(int fd, char **line)
 {
     static char buffer[BUFFER_SIZE + 1];
-    static int  init_line;
     int         size;
 
-    if (init_line)
-        free(*line);
     if (init_gnl(fd, line) == -1)
         return (-1);
-    init_line = 1;
     if (buffer[0])
         if (ft_buffer_to_line(line, buffer) == 1)
             return (1);
     size = 1;
     while (size > 0)
     {
-        size = read(fd, buffer, BUFFER_SIZE); // 0 = EOF, -1 = error
+        size = read(fd, buffer, BUFFER_SIZE);
         if (size == -1)
+        {
+            ft_freeline(line);
             return(-1);
+        }
         if (ft_add_line(line, buffer) == 1)
             return (1);
     }
-    if (**line) // quand est ce qu'on free line ? 
-        return (1);
-    init_line = ft_freeline(line);
-    return (0);
+//    if (!**line) // a voir si on return 0 sur la derniere ligne a lire ou juste apres   
+        return (0);
+    return (1);
 }

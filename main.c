@@ -27,7 +27,7 @@ int main()
 
     printf("Buffer_size = %d\n", BUFFER_SIZE);
 
-    path = "test3";
+    path = "alphabet";
     fd = open(path, 'r');
     if (fd == -1)
         return (-1);
@@ -36,17 +36,16 @@ int main()
     i = 0;
  //   line = NULL;
  //   fd = 0;   // standard input
-    while (i < 10)
+    while (i < 80)
     {
         res = get_next_line(fd, &line);
         printf("res = %d\n", res);
         if (res > 0)
             printf("line --> %s\n\n", line);
-        else if (res == 0)
-            printf("fin de fichier\n\n");
         else
             printf("erreur\n");
         i++;
+        free (line);
     }
 
 /*
