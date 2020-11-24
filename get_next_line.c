@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 08:51:38 by bjacob            #+#    #+#             */
-/*   Updated: 2020/11/24 08:52:14 by bjacob           ###   ########lyon.fr   */
+/*   Updated: 2020/11/24 10:10:41 by bjacob           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		init_gnl(int fd, char **line)
 {
 	if (!line || fd < 0 || !BUFFER_SIZE)
 	{
-		*line = NULL;
+		line = NULL;
 		return (-1);
 	}
 	if (!(*line = ft_calloc(BUFFER_SIZE + 1)))
@@ -89,28 +89,28 @@ int		ft_add_line(char **line, char *buffer)
 
 int		get_next_line(int fd, char **line)
 {
-	static char	buffer[BUFFER_SIZE + 1];
+	static char	buffer[4096][BUFFER_SIZE + 1];
 	int			size;
 
 	if (init_gnl(fd, line) == -1)
 		return (-1);
-	if (buffer[0])
-		if (ft_buffer_to_line(line, buffer) == 1)
+	if (buffer[fd][0])
+		if (ft_buffer_to_line(line, buffer[fd]) == 1)
 			return (1);
 	size = 1;
-	ft_bzero(buffer, BUFFER_SIZE + 1);
+	ft_bzero(buffer[fd], BUFFER_SIZE + 1);
 	while (size > 0)
 	{
-		size = read(fd, buffer, BUFFER_SIZE);
+		size = read(fd, buffer[fd], BUFFER_SIZE);
 		if (size == -1)
 		{
 			ft_freeline(line);
 			return (-1);
 		}
-		if (ft_add_line(line, buffer) == 1)
+		if (ft_add_line(line, buffer[fd]) == 1)
 			return (1);
 	}
-//	if (!**line) // a voir si on return 0 sur la ere ligne a lire ou juste apres   
-	return (0);
+	if (!**line) // a voir si on return 0 sur la ere ligne a lire ou juste apres   
+		return (0);
 	return (1);
 }
