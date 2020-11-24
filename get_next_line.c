@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjacob <bjacob@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/22 14:08:27 by bjacob            #+#    #+#             */
-/*   Updated: 2020/11/22 14:10:18 by bjacob           ###   ########lyon.fr   */
+/*   Created: 2020/11/24 08:51:38 by bjacob            #+#    #+#             */
+/*   Updated: 2020/11/24 08:52:14 by bjacob           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int		init_gnl(int fd, char **line)
 		return (-1);
 	return (1);
 }
-
-///// ---------- /////
 
 int		ft_buffer_to_line(char **line, char *buffer)
 {
@@ -45,8 +43,6 @@ int		ft_buffer_to_line(char **line, char *buffer)
 	return (end_line);
 }
 
-///// ---------- /////
-
 void	ft_crop_buffer(char *buffer, int i_b)
 {
 	int	i;
@@ -63,8 +59,6 @@ void	ft_crop_buffer(char *buffer, int i_b)
 	while (i < BUFFER_SIZE + 1)
 		buffer[i++] = '\0';
 }
-
-///// ---------- /////
 
 int		ft_add_line(char **line, char *buffer)
 {
@@ -92,8 +86,6 @@ int		ft_add_line(char **line, char *buffer)
 	free(str_temp);
 	return (end_line);
 }
-
-///// ---------- /////
 
 int		get_next_line(int fd, char **line)
 {
