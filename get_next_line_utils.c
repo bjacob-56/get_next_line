@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 08:52:45 by bjacob            #+#    #+#             */
-/*   Updated: 2020/11/24 08:52:55 by bjacob           ###   ########lyon.fr   */
+/*   Updated: 2020/11/25 09:15:35 by bjacob           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,8 @@ void	ft_bzero(char *s, int n)
 		s[i++] = '\0';
 }
 
-int		ft_freeline(char **line)
+int		free_error(char *str_temp)
 {
-	free(*line);
-	*line = NULL;
-	return (0);
+	free(str_temp);
+	return (-1);
 }

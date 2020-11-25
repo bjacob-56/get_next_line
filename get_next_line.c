@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 08:51:38 by bjacob            #+#    #+#             */
-/*   Updated: 2020/11/24 10:10:41 by bjacob           ###   ########lyon.fr   */
+/*   Updated: 2020/11/25 09:29:27 by bjacob           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 
 int		init_gnl(int fd, char **line)
 {
-	if (!line || fd < 0 || !BUFFER_SIZE)
-	{
-		line = NULL;
+	if (!line || fd < 0 || BUFFER_SIZE <= 0)
 		return (-1);
-	}
 	if (!(*line = ft_calloc(BUFFER_SIZE + 1)))
 		return (-1);
 	return (1);
@@ -69,10 +66,10 @@ int		ft_add_line(char **line, char *buffer)
 
 	i_l = -1;
 	i_b = 0;
-	end_line = 2;
+	end_line = 0;
 	str_temp = *line;
 	if (!(*line = ft_calloc(ft_strlen(*line) + BUFFER_SIZE + 1)))
-		return (-1);
+		return (free_error(str_temp));
 	while ((str_temp)[++i_l])
 		(*line)[i_l] = str_temp[i_l];
 	while (buffer[i_b] != '\n' && buffer[i_b])
@@ -91,6 +88,7 @@ int		get_next_line(int fd, char **line)
 {
 	static char	buffer[4096][BUFFER_SIZE + 1];
 	int			size;
+	int			response_add_line;
 
 	if (init_gnl(fd, line) == -1)
 		return (-1);
@@ -103,14 +101,12 @@ int		get_next_line(int fd, char **line)
 	{
 		size = read(fd, buffer[fd], BUFFER_SIZE);
 		if (size == -1)
-		{
-			ft_freeline(line);
 			return (-1);
-		}
-		if (ft_add_line(line, buffer[fd]) == 1)
-			return (1);
+		response_add_line = ft_add_line(line, buffer[fd]);
+		if (response_add_line)
+			return (response_add_line);
 	}
-	if (!**line) // a voir si on return 0 sur la ere ligne a lire ou juste apres   
+	if (!size)
 		return (0);
 	return (1);
 }

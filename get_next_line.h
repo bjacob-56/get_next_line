@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 08:53:40 by bjacob            #+#    #+#             */
-/*   Updated: 2020/11/24 08:56:35 by bjacob           ###   ########lyon.fr   */
+/*   Updated: 2020/11/25 09:09:24 by bjacob           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int		get_next_line(int fd, char **line);
 int		ft_strlen(const char *str);
 char	*ft_calloc(size_t nmemb);
 void	ft_bzero(char *s, int n);
-int		ft_freeline(char **line);
+int		free_error(char *str_temp);
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 32 // a garder ?? ////////
+#  define BUFFER_SIZE 32
 # endif
 
 #endif
